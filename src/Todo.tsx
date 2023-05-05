@@ -19,18 +19,14 @@ const Todo = (props: PropsType) => {
 				<button>+</button>
 			</div>
 			<ul>
-				<li>
-					<input type='checkbox' />
-					<span>CSS</span>
-				</li>
-				<li>
-					<input type='checkbox' />
-					<span>CSS</span>
-				</li>
-				<li>
-					<input type='checkbox' />
-					<span>CSS</span>
-				</li>
+				{props.tasks.map(param => {
+					return (
+						<li key={param.id}>
+							<input type='checkbox' />
+							<span>{param.title}</span>
+						</li>
+					)
+				})}
 			</ul>
 			<div>
 				<button>All</button>
