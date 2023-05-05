@@ -1,5 +1,12 @@
+export type TasksTpe = {
+	id: number
+	title: string
+	isDone: boolean
+}
+
 type PropsType = {
 	title: string
+	tasks: Array<TasksTpe>
 }
 
 const Todo = (props: PropsType) => {
