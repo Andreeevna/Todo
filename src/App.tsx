@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { v1 } from 'uuid'
 import './App.css'
 import Todo, { TasksType } from './Todo'
 
@@ -7,22 +8,22 @@ export type FilterValuesType = 'all' | 'completed' | 'active'
 function App() {
 	let tasks1: Array<TasksType> = [
 		{
-			id: 1,
+			id: v1(),
 			title: 'workout',
 			isDone: true,
 		},
 		{
-			id: 2,
+			id: v1(),
 			title: 'grocery shopping',
 			isDone: false,
 		},
 		{
-			id: 3,
+			id: v1(),
 			title: 'meeting with friends',
 			isDone: true,
 		},
 		{
-			id: 4,
+			id: v1(),
 			title: 'meeting with friends',
 			isDone: false,
 		},
@@ -31,7 +32,17 @@ function App() {
 	const [tasks, setTasks] = useState(tasks1)
 	const [filter, setFilter] = useState<FilterValuesType>('active')
 
-	const removeTask = (id: number) => {
+	const addTask = (newTitle: string) => {
+		let newTask = {
+			id: v1(),
+			title: newTitle,
+			isDone: false,
+		}
+		let newTasks = [newTask, ...tasks]
+		setTasks(newTasks)
+	}
+
+	const removeTask = (id: string) => {
 		let filtereTasks = tasks.filter(task => task.id !== id)
 		setTasks(filtereTasks)
 	}
@@ -55,6 +66,7 @@ function App() {
 			<Todo
 				title='Plans for today'
 				tasks={tasksForToDoList}
+				addTask={addTask}
 				removeTask={removeTask}
 				changeFilter={changeFilter}
 			/>
