@@ -7,6 +7,8 @@ var Todo = function (props) {
         setnewTaskTitle(event.target.value);
     };
     var addNewTask = function () {
+        if (newTaskTitle.trim() === '')
+            return;
         props.addTask(newTaskTitle);
         setnewTaskTitle('');
     };

@@ -26,6 +26,7 @@ const Todo: React.FC<PropsType> = props => {
 	}
 
 	const addNewTask = () => {
+		if (newTaskTitle.trim() === '') return
 		props.addTask(newTaskTitle)
 		setnewTaskTitle('')
 	}
