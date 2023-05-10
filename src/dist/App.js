@@ -52,6 +52,13 @@ function App() {
     var changeFilter = function (value) {
         setFilter(value);
     };
+    var changeStatus = function (id, isDone) {
+        var findTask = tasks.find(function (t) { return t.id === id; });
+        if (findTask) {
+            findTask.isDone = isDone;
+        }
+        setTasks(__spreadArrays(tasks));
+    };
     var tasksForToDoList = tasks;
     if (filter === 'completed') {
         tasksForToDoList = tasks.filter(function (task) { return task.isDone === true; });
@@ -60,6 +67,6 @@ function App() {
         tasksForToDoList = tasks.filter(function (task) { return task.isDone === false; });
     }
     return (React.createElement("div", { className: 'App' },
-        React.createElement(Todo_1["default"], { title: 'Plans for today', tasks: tasksForToDoList, addTask: addTask, removeTask: removeTask, changeFilter: changeFilter })));
+        React.createElement(Todo_1["default"], { title: 'Plans for today', tasks: tasksForToDoList, addTask: addTask, removeTask: removeTask, changeFilter: changeFilter, changeStatus: changeStatus })));
 }
 exports["default"] = App;
