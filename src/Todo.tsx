@@ -7,6 +7,7 @@ export type TasksTpe = {
 type PropsType = {
 	title: string
 	tasks: Array<TasksTpe>
+	removeTask: (id: number) => void
 }
 
 const Todo = (props: PropsType) => {
@@ -19,14 +20,16 @@ const Todo = (props: PropsType) => {
 				<button>+</button>
 			</div>
 			<ul>
-				{props.tasks.map(param => {
-					return (
-						<li key={param.id}>
-							<input type='checkbox' />
-							<span>{param.title}</span>
-						</li>
-					)
-				})}
+				{props.tasks &&
+					props.tasks.map(task => {
+						return (
+							<li key={task.id}>
+								<input type='checkbox' />
+								<span>{task.title}</span>
+								<button onClick={() => props.removeTask(task.id)}>-</button>
+							</li>
+						)
+					})}
 			</ul>
 			<div>
 				<button>All</button>
