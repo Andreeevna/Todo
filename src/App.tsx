@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import './App.css'
-import Todo, { TasksTpe } from './Todo'
+import Todo, { TasksType } from './Todo'
+
+export type FilterValuesType = 'all' | 'completed' | 'active'
 
 function App() {
-	let tasks1: Array<TasksTpe> = [
+	let tasks1: Array<TasksType> = [
 		{
 			id: 1,
 			title: 'workout',
@@ -22,20 +24,40 @@ function App() {
 		{
 			id: 4,
 			title: 'meeting with friends',
-			isDone: true,
+			isDone: false,
 		},
 	]
 
 	const [tasks, setTasks] = useState(tasks1)
+	const [filter, setFilter] = useState<FilterValuesType>('active')
 
 	const removeTask = (id: number) => {
 		let filtereTasks = tasks.filter(task => task.id !== id)
 		setTasks(filtereTasks)
 	}
 
+	const changeFilter = (value: FilterValuesType) => {
+		setFilter(value)
+	}
+
+	let tasksForToDoList = tasks
+
+	if (filter === 'completed') {
+		tasksForToDoList = tasks.filter(task => task.isDone === true)
+	}
+
+	if (filter === 'active') {
+		tasksForToDoList = tasks.filter(task => task.isDone === false)
+	}
+
 	return (
 		<div className='App'>
-			<Todo title='Plans for today' tasks={tasks} removeTask={removeTask} />
+			<Todo
+				title='Plans for today'
+				tasks={tasksForToDoList}
+				removeTask={removeTask}
+				changeFilter={changeFilter}
+			/>
 		</div>
 	)
 }

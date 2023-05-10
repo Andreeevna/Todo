@@ -1,4 +1,6 @@
-export type TasksTpe = {
+import { FilterValuesType } from './App'
+
+export type TasksType = {
 	id: number
 	title: string
 	isDone: boolean
@@ -6,15 +8,15 @@ export type TasksTpe = {
 
 type PropsType = {
 	title: string
-	tasks: Array<TasksTpe>
+	tasks: Array<TasksType>
 	removeTask: (id: number) => void
+	changeFilter: (value: FilterValuesType) => void
 }
 
 const Todo = (props: PropsType) => {
 	return (
 		<div>
 			<h3>{props.title}</h3>
-
 			<div>
 				<input />
 				<button>+</button>
@@ -24,7 +26,11 @@ const Todo = (props: PropsType) => {
 					props.tasks.map(task => {
 						return (
 							<li key={task.id}>
-								<input type='checkbox' />
+								<input
+									type='checkbox'
+									checked={task.isDone}
+									onChange={() => {}}
+								/>
 								<span>{task.title}</span>
 								<button onClick={() => props.removeTask(task.id)}>-</button>
 							</li>
@@ -32,9 +38,11 @@ const Todo = (props: PropsType) => {
 					})}
 			</ul>
 			<div>
-				<button>All</button>
-				<button>Active</button>
-				<button>Completed</button>
+				<button onClick={() => props.changeFilter('all')}>All</button>
+				<button onClick={() => props.changeFilter('active')}>Active</button>
+				<button onClick={() => props.changeFilter('completed')}>
+					Completed
+				</button>
 			</div>
 		</div>
 	)
