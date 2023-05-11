@@ -67,6 +67,6 @@ function App() {
         tasksForToDoList = tasks.filter(function (task) { return task.isDone === false; });
     }
     return (React.createElement("div", { className: 'App' },
-        React.createElement(Todo_1["default"], { title: 'Plans for today', tasks: tasksForToDoList, addTask: addTask, removeTask: removeTask, changeFilter: changeFilter, changeStatus: changeStatus })));
+        React.createElement(Todo_1["default"], { title: 'Plans for today', tasks: tasksForToDoList, addTask: addTask, removeTask: removeTask, changeFilter: changeFilter, changeStatus: changeStatus, filter: filter })));
 }
 exports["default"] = App;
