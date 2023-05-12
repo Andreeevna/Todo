@@ -1,4 +1,4 @@
-import styles from './Layout.module.scss'
+import styles from './Layout.module.css'
 
 export type LayoutProps = {
 	children: React.ReactNode
