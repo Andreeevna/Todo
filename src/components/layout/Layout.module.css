@@ -1,3 +1,6 @@
 .wrapper {
-	margin: o auto;
+	padding: 0 15px 0 15px;
+	margin-right: auto;
+	margin-left: auto;
+	width: 1420px;
 }

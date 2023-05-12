@@ -9,6 +9,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 exports.__esModule = true;
 var react_1 = require("react");
 var uuid_1 = require("uuid");
+var Layout_1 = require("../../layout/Layout");
 var Todo_1 = require("../todo/Todo");
 var Todolist = function () {
     var tasks1 = [
@@ -65,7 +66,7 @@ var Todolist = function () {
     if (filter === 'active') {
         tasksForToDoList = tasks.filter(function (task) { return task.isDone === false; });
     }
-    return (React.createElement("div", { className: 'App' },
+    return (React.createElement(Layout_1["default"], null,
         React.createElement(Todo_1["default"], { title: 'Plans for today', tasks: tasksForToDoList, addTask: addTask, removeTask: removeTask, changeFilter: changeFilter, changeStatus: changeStatus, filter: filter })));
 };
 exports["default"] = Todolist;

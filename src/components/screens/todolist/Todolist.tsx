@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { v1 } from 'uuid'
+import Layout from '../../layout/Layout'
 import Todo, { TasksType } from '../todo/Todo'
 
 export type FilterValuesType = 'all' | 'completed' | 'active'
@@ -71,7 +72,7 @@ const Todolist = () => {
 	}
 
 	return (
-		<div className='App'>
+		<Layout>
 			<Todo
 				title='Plans for today'
 				tasks={tasksForToDoList}
@@ -81,7 +82,7 @@ const Todolist = () => {
 				changeStatus={changeStatus}
 				filter={filter}
 			/>
-		</div>
+		</Layout>
 	)
 }
 
