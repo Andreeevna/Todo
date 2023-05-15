@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { v1 } from 'uuid'
+
 import Layout from '../../layout/Layout'
 import Todo, { TasksType } from '../todo/Todo'
+import styles from './Todolist.module.css'
 
 export type FilterValuesType = 'all' | 'completed' | 'active'
 
@@ -30,7 +32,7 @@ const Todolist = () => {
 	]
 
 	const [tasks, setTasks] = useState(tasks1)
-	const [filter, setFilter] = useState<FilterValuesType>('active')
+	const [filter, setFilter] = useState<FilterValuesType>('all')
 
 	const addTask = (newTitle: string) => {
 		let newTask = {
@@ -73,15 +75,17 @@ const Todolist = () => {
 
 	return (
 		<Layout>
-			<Todo
-				title='Plans for today'
-				tasks={tasksForToDoList}
-				addTask={addTask}
-				removeTask={removeTask}
-				changeFilter={changeFilter}
-				changeStatus={changeStatus}
-				filter={filter}
-			/>
+			<div className={styles.todolist}>
+				<Todo
+					title='Plans for today'
+					tasks={tasksForToDoList}
+					addTask={addTask}
+					removeTask={removeTask}
+					changeFilter={changeFilter}
+					changeStatus={changeStatus}
+					filter={filter}
+				/>
+			</div>
 		</Layout>
 	)
 }

@@ -11,6 +11,7 @@ var react_1 = require("react");
 var uuid_1 = require("uuid");
 var Layout_1 = require("../../layout/Layout");
 var Todo_1 = require("../todo/Todo");
+var Todolist_module_css_1 = require("./Todolist.module.css");
 var Todolist = function () {
     var tasks1 = [
         {
@@ -35,7 +36,7 @@ var Todolist = function () {
         },
     ];
     var _a = react_1.useState(tasks1), tasks = _a[0], setTasks = _a[1];
-    var _b = react_1.useState('active'), filter = _b[0], setFilter = _b[1];
+    var _b = react_1.useState('all'), filter = _b[0], setFilter = _b[1];
     var addTask = function (newTitle) {
         var newTask = {
             id: uuid_1.v1(),
@@ -67,6 +68,7 @@ var Todolist = function () {
         tasksForToDoList = tasks.filter(function (task) { return task.isDone === false; });
     }
     return (React.createElement(Layout_1["default"], null,
-        React.createElement(Todo_1["default"], { title: 'Plans for today', tasks: tasksForToDoList, addTask: addTask, removeTask: removeTask, changeFilter: changeFilter, changeStatus: changeStatus, filter: filter })));
+        React.createElement("div", { className: Todolist_module_css_1["default"].todolist },
+            React.createElement(Todo_1["default"], { title: 'Plans for today', tasks: tasksForToDoList, addTask: addTask, removeTask: removeTask, changeFilter: changeFilter, changeStatus: changeStatus, filter: filter }))));
 };
 exports["default"] = Todolist;

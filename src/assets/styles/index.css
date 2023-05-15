@@ -49,6 +49,20 @@ img {
 	max-width: 100%;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+}
+
 .App {
 	padding: 30px;
 	display: flex;
@@ -59,15 +73,17 @@ img {
 }
 
 .error {
-	border: 1px solid red;
+	border: 1px solid #ffa048 !important;
 }
 
 .error-message {
-	color: red;
+	padding: 10px 0 0 15px;
+	font-size: 14px;
+	color: #ffa048;
 }
 
 .active-filter {
-	background-color: #b8dbbd;
+	background-color: rgba(147, 148, 152, 0.964) !important;
 }
 
 .is-done {

@@ -1,4 +1,8 @@
+import cn from 'classnames'
 import { ChangeEvent, KeyboardEvent, useState } from 'react'
+
+import styles from './Todo.module.css'
+
 import { FilterValuesType } from '../todolist/Todolist'
 
 export type TasksType = {
@@ -52,19 +56,23 @@ const Todo: React.FC<PropsType> = props => {
 		setError('')
 	}
 	return (
-		<div>
-			<h3>{props.title}</h3>
-			<div>
+		<div className={cn(styles.todo__wrapper, styles.todo)}>
+			<h3 className={styles.todo__title}>{props.title}</h3>
+			<div className={styles.todo__new_task}>
 				<input
+					className={cn(styles.todo__input, { error: error })}
+					placeholder='Enter a new task...'
+					type='text'
 					value={newTaskTitle}
 					onChange={editTaskTitleChangeHandler}
 					onKeyPress={onKeyPressHandler}
-					className={error ? 'error' : ''}
 				/>
-				<button onClick={addNewTask}>+</button>
+				<button className={styles.button__add_task} onClick={addNewTask}>
+					+
+				</button>
 				{error && <div className='error-message'>{error}</div>}
 			</div>
-			<ul>
+			<ul className={styles.todo__list}>
 				{props.tasks &&
 					props.tasks.map(task => {
 						const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +81,10 @@ const Todo: React.FC<PropsType> = props => {
 						return (
 							<li
 								key={task.id}
-								className={task.isDone === true ? 'is-done' : ''}
+								className={cn(
+									styles.todo__list_item,
+									task.isDone === true ? 'is-done' : ''
+								)}
 							>
 								<input
 									type='checkbox'
@@ -86,21 +97,30 @@ const Todo: React.FC<PropsType> = props => {
 						)
 					})}
 			</ul>
-			<div>
+			<div className={styles.buttons}>
 				<button
-					className={props.filter === 'all' ? 'active-filter' : ''}
+					className={cn(
+						styles.buttons__status,
+						props.filter === 'all' ? 'active-filter' : ''
+					)}
 					onClick={onAllClickHandler}
 				>
 					All
 				</button>
 				<button
-					className={props.filter === 'active' ? 'active-filter' : ''}
+					className={cn(
+						styles.buttons__status,
+						props.filter === 'active' ? 'active-filter' : ''
+					)}
 					onClick={onActiveClickHandler}
 				>
 					Active
 				</button>
 				<button
-					className={props.filter === 'completed' ? 'active-filter' : ''}
+					className={cn(
+						styles.buttons__status,
+						props.filter === 'completed' ? 'active-filter' : ''
+					)}
 					onClick={onCompletedClickHandler}
 				>
 					Completed
