@@ -88,10 +88,11 @@ const Todo: React.FC<PropsType> = props => {
 							>
 								<input
 									type='checkbox'
+									id={task.id}
 									checked={task.isDone}
 									onChange={onChangeHandler}
 								/>
-								<span>{task.title}</span>
+								<label htmlFor={task.id}>{task.title}</label>
 								<button onClick={() => props.removeTask(task.id)}>-</button>
 							</li>
 						)
