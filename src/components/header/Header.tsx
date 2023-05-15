@@ -12,7 +12,7 @@ const Header: React.FC = () => {
 				<img src={searchImg} />
 				<img src={dataImg} />
 				<span>19 May 2022</span>
-				<img src={ProfileImg} />
+				<img className={styles.header__img} src={ProfileImg} />
 			</div>
 		</div>
 	)

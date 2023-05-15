@@ -11,6 +11,6 @@ var Header = function () {
             React.createElement("img", { src: search_svg_1["default"] }),
             React.createElement("img", { src: date_svg_1["default"] }),
             React.createElement("span", null, "19 May 2022"),
-            React.createElement("img", { src: Profile_png_1["default"] }))));
+            React.createElement("img", { className: Header_module_css_1["default"].header__img, src: Profile_png_1["default"] }))));
 };
 exports["default"] = Header;

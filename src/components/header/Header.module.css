@@ -15,7 +15,6 @@
 	margin-right: 15px;
 }
 
-.header__search {
-	border: none;
-	background-color: transparent;
+.header__img {
+	height: auto;
 }
