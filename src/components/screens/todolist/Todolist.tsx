@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { v1 } from 'uuid'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { addNewTask } from '../../../redux/slices/addTaskSlice'
 import Layout from '../../layout/Layout'
 import Todo, { TasksType } from '../todo/Todo'
 import styles from './Todolist.module.css'
@@ -31,58 +33,64 @@ const Todolist = () => {
 		},
 	]
 
-	const [tasks, setTasks] = useState(tasks1)
+	// const [tasks, setTasks] = useState(tasks1)
+
+	const tasks2 = useSelector((state: any) => state.addTask.tasks1)
+	const dispatch = useDispatch()
+
 	const [filter, setFilter] = useState<FilterValuesType>('all')
 
 	const addTask = (newTitle: string) => {
-		let newTask = {
-			id: v1(),
-			title: newTitle,
-			isDone: false,
-		}
-		let newTasks = [newTask, ...tasks]
-		setTasks(newTasks)
+		// let newTask = {
+		// 	id: v1(),
+		// 	title: newTitle,
+		// 	isDone: false,
+		// }
+		// let newTasks = [newTask, ...tasks]
+		console.log(newTitle)
+		dispatch(addNewTask(newTitle))
+		// setTasks(newTasks)
 	}
 
-	const removeTask = (id: string) => {
-		let filtereTasks = tasks.filter(task => task.id !== id)
-		setTasks(filtereTasks)
-	}
+	// const removeTask = (id: string) => {
+	// 	let filtereTasks = tasks.filter(task => task.id !== id)
+	// 	setTasks(filtereTasks)
+	// }
 
 	const changeFilter = (value: FilterValuesType) => {
 		setFilter(value)
 	}
 
-	const changeStatus = (id: string, isDone: boolean) => {
-		let findTask = tasks.find(t => t.id === id)
+	// const changeStatus = (id: string, isDone: boolean) => {
+	// 	let findTask = tasks.find(t => t.id === id)
 
-		if (findTask) {
-			findTask.isDone = isDone
-		}
+	// 	if (findTask) {
+	// 		findTask.isDone = isDone
+	// 	}
 
-		setTasks([...tasks])
-	}
+	// 	setTasks([...tasks])
+	// }
 
-	let tasksForToDoList = tasks
+	// let tasksForToDoList = tasks
 
-	if (filter === 'completed') {
-		tasksForToDoList = tasks.filter(task => task.isDone === true)
-	}
+	// if (filter === 'completed') {
+	// 	tasksForToDoList = tasks.filter(task => task.isDone === true)
+	// }
 
-	if (filter === 'active') {
-		tasksForToDoList = tasks.filter(task => task.isDone === false)
-	}
+	// if (filter === 'active') {
+	// 	tasksForToDoList = tasks.filter(task => task.isDone === false)
+	// }
 
 	return (
 		<Layout>
 			<div className={styles.todolist}>
 				<Todo
 					title='Plans for today'
-					tasks={tasksForToDoList}
+					// tasks={tasksForToDoList}
 					addTask={addTask}
-					removeTask={removeTask}
+					// removeTask={removeTask}
 					changeFilter={changeFilter}
-					changeStatus={changeStatus}
+					// changeStatus={changeStatus}
 					filter={filter}
 				/>
 			</div>

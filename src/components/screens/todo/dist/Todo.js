@@ -3,7 +3,9 @@ exports.__esModule = true;
 var classnames_1 = require("classnames");
 var react_1 = require("react");
 var Todo_module_css_1 = require("./Todo.module.css");
+var react_redux_1 = require("react-redux");
 var Todo = function (props) {
+    var tasks = react_redux_1.useSelector(function (state) { return state.addTask.tasks1; });
     var _a = react_1.useState(''), newTaskTitle = _a[0], setnewTaskTitle = _a[1];
     var _b = react_1.useState(''), error = _b[0], setError = _b[1];
     var editTaskTitleChangeHandler = function (event) {
@@ -36,15 +38,14 @@ var Todo = function (props) {
             React.createElement("input", { className: classnames_1["default"](Todo_module_css_1["default"].todo__input, { error: error }), placeholder: 'Enter a new task...', type: 'text', value: newTaskTitle, onChange: editTaskTitleChangeHandler, onKeyPress: onKeyPressHandler }),
             React.createElement("button", { className: Todo_module_css_1["default"].button__add_task, onClick: addNewTask }, "+"),
             error && React.createElement("div", { className: 'error-message' }, error)),
-        React.createElement("ul", { className: Todo_module_css_1["default"].todo__list }, props.tasks &&
-            props.tasks.map(function (task) {
-                var onChangeHandler = function (e) {
-                    props.changeStatus(task.id, e.target.checked);
-                };
+        React.createElement("ul", { className: Todo_module_css_1["default"].todo__list }, tasks &&
+            tasks.map(function (task) {
+                // const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+                // 	// props.changeStatus(task.id, e.target.checked)
+                // }
                 return (React.createElement("li", { key: task.id, className: classnames_1["default"](Todo_module_css_1["default"].todo__list_item, task.isDone === true ? 'is-done' : '') },
-                    React.createElement("input", { type: 'checkbox', id: task.id, checked: task.isDone, onChange: onChangeHandler }),
-                    React.createElement("label", { htmlFor: task.id }, task.title),
-                    React.createElement("button", { onClick: function () { return props.removeTask(task.id); } }, "-")));
+                    React.createElement("input", { type: 'checkbox', id: task.id, checked: task.isDone }),
+                    React.createElement("label", { htmlFor: task.id }, task.title)));
             })),
         React.createElement("div", { className: Todo_module_css_1["default"].buttons },
             React.createElement("button", { className: classnames_1["default"](Todo_module_css_1["default"].buttons__status, props.filter === 'all' ? 'active-filter' : ''), onClick: onAllClickHandler }, "All"),

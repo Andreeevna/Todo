@@ -1,8 +1,9 @@
 import cn from 'classnames'
-import { ChangeEvent, KeyboardEvent, useState } from 'react'
+import { KeyboardEvent, useState } from 'react'
 
 import styles from './Todo.module.css'
 
+import { useSelector } from 'react-redux'
 import { FilterValuesType } from '../todolist/Todolist'
 
 export type TasksType = {
@@ -13,15 +14,16 @@ export type TasksType = {
 
 type PropsType = {
 	title: string
-	tasks: Array<TasksType>
+	// tasks: Array<TasksType>
 	addTask: (newTitle: string) => void
-	removeTask: (id: string) => void
+	// removeTask: (id: string) => void
 	changeFilter: (value: FilterValuesType) => void
-	changeStatus: (id: string, isDone: boolean) => void
+	// changeStatus: (id: string, isDone: boolean) => void
 	filter: FilterValuesType
 }
 
 const Todo: React.FC<PropsType> = props => {
+	const tasks = useSelector((state: any) => state.addTask.tasks1)
 	const [newTaskTitle, setnewTaskTitle] = useState('')
 	const [error, setError] = useState('')
 
@@ -73,11 +75,12 @@ const Todo: React.FC<PropsType> = props => {
 				{error && <div className='error-message'>{error}</div>}
 			</div>
 			<ul className={styles.todo__list}>
-				{props.tasks &&
-					props.tasks.map(task => {
-						const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-							props.changeStatus(task.id, e.target.checked)
-						}
+				{tasks &&
+					tasks.map((task: any) => {
+						// const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+						// 	// props.changeStatus(task.id, e.target.checked)
+						// }
+
 						return (
 							<li
 								key={task.id}
@@ -90,10 +93,10 @@ const Todo: React.FC<PropsType> = props => {
 									type='checkbox'
 									id={task.id}
 									checked={task.isDone}
-									onChange={onChangeHandler}
+									// onChange={onChangeHandler}
 								/>
 								<label htmlFor={task.id}>{task.title}</label>
-								<button onClick={() => props.removeTask(task.id)}>-</button>
+								{/* <button onClick={() => props.removeTask(task.id)}>-</button> */}
 							</li>
 						)
 					})}

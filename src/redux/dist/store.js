@@ -1,7 +1,12 @@
 "use strict";
 exports.__esModule = true;
-exports.store = void 0;
+exports.useAppDispatch = exports.store = void 0;
 var toolkit_1 = require("@reduxjs/toolkit");
+var react_redux_1 = require("react-redux");
+var addTaskSlice_1 = require("./slices/addTaskSlice");
 exports.store = toolkit_1.configureStore({
-    reducer: {}
+    reducer: {
+        addTask: addTaskSlice_1["default"]
+    }
 });
+exports.useAppDispatch = function () { return react_redux_1.useDispatch(); };

@@ -1,14 +1,9 @@
 "use strict";
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 exports.__esModule = true;
 var react_1 = require("react");
 var uuid_1 = require("uuid");
+var react_redux_1 = require("react-redux");
+var addTaskSlice_1 = require("../../../redux/slices/addTaskSlice");
 var Layout_1 = require("../../layout/Layout");
 var Todo_1 = require("../todo/Todo");
 var Todolist_module_css_1 = require("./Todolist.module.css");
@@ -35,40 +30,50 @@ var Todolist = function () {
             isDone: false
         },
     ];
-    var _a = react_1.useState(tasks1), tasks = _a[0], setTasks = _a[1];
-    var _b = react_1.useState('all'), filter = _b[0], setFilter = _b[1];
+    // const [tasks, setTasks] = useState(tasks1)
+    var tasks2 = react_redux_1.useSelector(function (state) { return state.addTask.tasks1; });
+    var dispatch = react_redux_1.useDispatch();
+    var _a = react_1.useState('all'), filter = _a[0], setFilter = _a[1];
     var addTask = function (newTitle) {
-        var newTask = {
-            id: uuid_1.v1(),
-            title: newTitle,
-            isDone: false
-        };
-        var newTasks = __spreadArrays([newTask], tasks);
-        setTasks(newTasks);
+        // let newTask = {
+        // 	id: v1(),
+        // 	title: newTitle,
+        // 	isDone: false,
+        // }
+        // let newTasks = [newTask, ...tasks]
+        console.log(newTitle);
+        dispatch(addTaskSlice_1.addNewTask(newTitle));
+        // setTasks(newTasks)
     };
-    var removeTask = function (id) {
-        var filtereTasks = tasks.filter(function (task) { return task.id !== id; });
-        setTasks(filtereTasks);
-    };
+    // const removeTask = (id: string) => {
+    // 	let filtereTasks = tasks.filter(task => task.id !== id)
+    // 	setTasks(filtereTasks)
+    // }
     var changeFilter = function (value) {
         setFilter(value);
     };
-    var changeStatus = function (id, isDone) {
-        var findTask = tasks.find(function (t) { return t.id === id; });
-        if (findTask) {
-            findTask.isDone = isDone;
-        }
-        setTasks(__spreadArrays(tasks));
-    };
-    var tasksForToDoList = tasks;
-    if (filter === 'completed') {
-        tasksForToDoList = tasks.filter(function (task) { return task.isDone === true; });
-    }
-    if (filter === 'active') {
-        tasksForToDoList = tasks.filter(function (task) { return task.isDone === false; });
-    }
+    // const changeStatus = (id: string, isDone: boolean) => {
+    // 	let findTask = tasks.find(t => t.id === id)
+    // 	if (findTask) {
+    // 		findTask.isDone = isDone
+    // 	}
+    // 	setTasks([...tasks])
+    // }
+    // let tasksForToDoList = tasks
+    // if (filter === 'completed') {
+    // 	tasksForToDoList = tasks.filter(task => task.isDone === true)
+    // }
+    // if (filter === 'active') {
+    // 	tasksForToDoList = tasks.filter(task => task.isDone === false)
+    // }
     return (React.createElement(Layout_1["default"], null,
         React.createElement("div", { className: Todolist_module_css_1["default"].todolist },
-            React.createElement(Todo_1["default"], { title: 'Plans for today', tasks: tasksForToDoList, addTask: addTask, removeTask: removeTask, changeFilter: changeFilter, changeStatus: changeStatus, filter: filter }))));
+            React.createElement(Todo_1["default"], { title: 'Plans for today', 
+                // tasks={tasksForToDoList}
+                addTask: addTask, 
+                // removeTask={removeTask}
+                changeFilter: changeFilter, 
+                // changeStatus={changeStatus}
+                filter: filter }))));
 };
 exports["default"] = Todolist;
