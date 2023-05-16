@@ -16,7 +16,7 @@ type PropsType = {
 	title: string
 	// tasks: Array<TasksType>
 	addTask: (newTitle: string) => void
-	// removeTask: (id: string) => void
+	removeTask: (id: string) => void
 	changeFilter: (value: FilterValuesType) => void
 	// changeStatus: (id: string, isDone: boolean) => void
 	filter: FilterValuesType
@@ -96,7 +96,7 @@ const Todo: React.FC<PropsType> = props => {
 									// onChange={onChangeHandler}
 								/>
 								<label htmlFor={task.id}>{task.title}</label>
-								{/* <button onClick={() => props.removeTask(task.id)}>-</button> */}
+								<button onClick={() => props.removeTask(task.id)}>-</button>
 							</li>
 						)
 					})}

@@ -2,7 +2,10 @@ import { useState } from 'react'
 import { v1 } from 'uuid'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { addNewTask } from '../../../redux/slices/addTaskSlice'
+import {
+	addNewTask,
+	removeCurrentTask,
+} from '../../../redux/slices/addTaskSlice'
 import Layout from '../../layout/Layout'
 import Todo, { TasksType } from '../todo/Todo'
 import styles from './Todolist.module.css'
@@ -41,21 +44,12 @@ const Todolist = () => {
 	const [filter, setFilter] = useState<FilterValuesType>('all')
 
 	const addTask = (newTitle: string) => {
-		// let newTask = {
-		// 	id: v1(),
-		// 	title: newTitle,
-		// 	isDone: false,
-		// }
-		// let newTasks = [newTask, ...tasks]
-		console.log(newTitle)
 		dispatch(addNewTask(newTitle))
-		// setTasks(newTasks)
 	}
 
-	// const removeTask = (id: string) => {
-	// 	let filtereTasks = tasks.filter(task => task.id !== id)
-	// 	setTasks(filtereTasks)
-	// }
+	const removeTask = (id: string) => {
+		dispatch(removeCurrentTask(id))
+	}
 
 	const changeFilter = (value: FilterValuesType) => {
 		setFilter(value)
@@ -88,7 +82,7 @@ const Todolist = () => {
 					title='Plans for today'
 					// tasks={tasksForToDoList}
 					addTask={addTask}
-					// removeTask={removeTask}
+					removeTask={removeTask}
 					changeFilter={changeFilter}
 					// changeStatus={changeStatus}
 					filter={filter}

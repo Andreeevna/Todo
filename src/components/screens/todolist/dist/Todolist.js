@@ -35,20 +35,11 @@ var Todolist = function () {
     var dispatch = react_redux_1.useDispatch();
     var _a = react_1.useState('all'), filter = _a[0], setFilter = _a[1];
     var addTask = function (newTitle) {
-        // let newTask = {
-        // 	id: v1(),
-        // 	title: newTitle,
-        // 	isDone: false,
-        // }
-        // let newTasks = [newTask, ...tasks]
-        console.log(newTitle);
         dispatch(addTaskSlice_1.addNewTask(newTitle));
-        // setTasks(newTasks)
     };
-    // const removeTask = (id: string) => {
-    // 	let filtereTasks = tasks.filter(task => task.id !== id)
-    // 	setTasks(filtereTasks)
-    // }
+    var removeTask = function (id) {
+        dispatch(addTaskSlice_1.removeCurrentTask(id));
+    };
     var changeFilter = function (value) {
         setFilter(value);
     };
@@ -70,9 +61,7 @@ var Todolist = function () {
         React.createElement("div", { className: Todolist_module_css_1["default"].todolist },
             React.createElement(Todo_1["default"], { title: 'Plans for today', 
                 // tasks={tasksForToDoList}
-                addTask: addTask, 
-                // removeTask={removeTask}
-                changeFilter: changeFilter, 
+                addTask: addTask, removeTask: removeTask, changeFilter: changeFilter, 
                 // changeStatus={changeStatus}
                 filter: filter }))));
 };

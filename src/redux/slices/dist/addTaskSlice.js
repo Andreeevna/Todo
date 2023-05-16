@@ -6,8 +6,9 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
+var _a;
 exports.__esModule = true;
-exports.addNewTask = exports.addTaskSlice = void 0;
+exports.removeCurrentTask = exports.addNewTask = exports.addTaskSlice = void 0;
 var toolkit_1 = require("@reduxjs/toolkit");
 var uuid_1 = require("uuid");
 var initialState = {
@@ -45,8 +46,11 @@ exports.addTaskSlice = toolkit_1.createSlice({
                 isDone: false
             };
             state.tasks1 = __spreadArrays([newTask], state.tasks1);
+        },
+        removeCurrentTask: function (state, action) {
+            state.tasks1 = state.tasks1.filter(function (task) { return task.id !== action.payload; });
         }
     }
 });
-exports.addNewTask = exports.addTaskSlice.actions.addNewTask;
+exports.addNewTask = (_a = exports.addTaskSlice.actions, _a.addNewTask), exports.removeCurrentTask = _a.removeCurrentTask;
 exports["default"] = exports.addTaskSlice.reducer;

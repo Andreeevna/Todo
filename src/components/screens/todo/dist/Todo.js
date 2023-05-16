@@ -45,7 +45,8 @@ var Todo = function (props) {
                 // }
                 return (React.createElement("li", { key: task.id, className: classnames_1["default"](Todo_module_css_1["default"].todo__list_item, task.isDone === true ? 'is-done' : '') },
                     React.createElement("input", { type: 'checkbox', id: task.id, checked: task.isDone }),
-                    React.createElement("label", { htmlFor: task.id }, task.title)));
+                    React.createElement("label", { htmlFor: task.id }, task.title),
+                    React.createElement("button", { onClick: function () { return props.removeTask(task.id); } }, "-")));
             })),
         React.createElement("div", { className: Todo_module_css_1["default"].buttons },
             React.createElement("button", { className: classnames_1["default"](Todo_module_css_1["default"].buttons__status, props.filter === 'all' ? 'active-filter' : ''), onClick: onAllClickHandler }, "All"),
