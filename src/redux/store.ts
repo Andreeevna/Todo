@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
-import addTask from './slices/addTaskSlice'
+import addTask from './slices/changeTaskSlice'
 
 export const store = configureStore({
 	reducer: {

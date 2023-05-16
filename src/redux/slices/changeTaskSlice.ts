@@ -37,7 +37,7 @@ const initialState = {
 	] as Array<TasksType>,
 }
 
-export const addTaskSlice = createSlice({
+export const changeTaskSlice = createSlice({
 	name: 'addTask',
 	initialState,
 	reducers: {
@@ -64,6 +64,6 @@ export const addTaskSlice = createSlice({
 })
 
 export const { addNewTask, removeCurrentTask, changeStatusTask } =
-	addTaskSlice.actions
+	changeTaskSlice.actions
 
-export default addTaskSlice.reducer
+export default changeTaskSlice.reducer

@@ -4,28 +4,36 @@ import { KeyboardEvent, useState } from 'react'
 import styles from './Todo.module.css'
 
 import { useSelector } from 'react-redux'
-import { FilterValuesType } from '../todolist/Todolist'
+import { RootState } from '../../../redux/store'
 
 export type TasksType = {
 	id: string
 	title: string
 	isDone: boolean
 }
+export type FilterValuesType = 'all' | 'completed' | 'active'
 
 type PropsType = {
 	title: string
-	// tasks: Array<TasksType>
 	addTask: (newTitle: string) => void
 	removeTask: (id: string) => void
-	changeFilter: (value: FilterValuesType) => void
 	changeStatus: (id: string, isDone: boolean) => void
-	filter: FilterValuesType
 }
 
 const Todo: React.FC<PropsType> = props => {
-	const tasks = useSelector((state: any) => state.addTask.tasks1)
+	let tasks = useSelector((state: RootState) => state.addTask.tasks1)
 	const [newTaskTitle, setnewTaskTitle] = useState('')
 	const [error, setError] = useState('')
+
+	const [filter, setFilter] = useState<FilterValuesType>('all')
+
+	if (filter === 'completed') {
+		tasks = [...tasks.filter(task => task.isDone === true)]
+	}
+
+	if (filter === 'active') {
+		tasks = [...tasks.filter(task => task.isDone === false)]
+	}
 
 	const editTaskTitleChangeHandler = (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -42,21 +50,26 @@ const Todo: React.FC<PropsType> = props => {
 		}
 	}
 
+	const changeFilter = (value: FilterValuesType) => {
+		setFilter(value)
+	}
+
 	const onAllClickHandler = () => {
-		props.changeFilter('all')
+		changeFilter('all')
 	}
 
 	const onActiveClickHandler = () => {
-		props.changeFilter('active')
+		changeFilter('active')
 	}
 
 	const onCompletedClickHandler = () => {
-		props.changeFilter('completed')
+		changeFilter('completed')
 	}
 
 	const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
 		setError('')
 	}
+
 	return (
 		<div className={cn(styles.todo__wrapper, styles.todo)}>
 			<h3 className={styles.todo__title}>{props.title}</h3>
@@ -107,7 +120,7 @@ const Todo: React.FC<PropsType> = props => {
 				<button
 					className={cn(
 						styles.buttons__status,
-						props.filter === 'all' ? 'active-filter' : ''
+						filter === 'all' ? 'active-filter' : ''
 					)}
 					onClick={onAllClickHandler}
 				>
@@ -116,7 +129,7 @@ const Todo: React.FC<PropsType> = props => {
 				<button
 					className={cn(
 						styles.buttons__status,
-						props.filter === 'active' ? 'active-filter' : ''
+						filter === 'active' ? 'active-filter' : ''
 					)}
 					onClick={onActiveClickHandler}
 				>
@@ -125,7 +138,7 @@ const Todo: React.FC<PropsType> = props => {
 				<button
 					className={cn(
 						styles.buttons__status,
-						props.filter === 'completed' ? 'active-filter' : ''
+						filter === 'completed' ? 'active-filter' : ''
 					)}
 					onClick={onCompletedClickHandler}
 				>

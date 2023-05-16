@@ -1,4 +1,11 @@
 "use strict";
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 exports.__esModule = true;
 var classnames_1 = require("classnames");
 var react_1 = require("react");
@@ -8,6 +15,13 @@ var Todo = function (props) {
     var tasks = react_redux_1.useSelector(function (state) { return state.addTask.tasks1; });
     var _a = react_1.useState(''), newTaskTitle = _a[0], setnewTaskTitle = _a[1];
     var _b = react_1.useState(''), error = _b[0], setError = _b[1];
+    var _c = react_1.useState('all'), filter = _c[0], setFilter = _c[1];
+    if (filter === 'completed') {
+        tasks = __spreadArrays(tasks.filter(function (task) { return task.isDone === true; }));
+    }
+    if (filter === 'active') {
+        tasks = __spreadArrays(tasks.filter(function (task) { return task.isDone === false; }));
+    }
     var editTaskTitleChangeHandler = function (event) {
         setnewTaskTitle(event.target.value);
     };
@@ -20,14 +34,17 @@ var Todo = function (props) {
             setError('The title is required');
         }
     };
+    var changeFilter = function (value) {
+        setFilter(value);
+    };
     var onAllClickHandler = function () {
-        props.changeFilter('all');
+        changeFilter('all');
     };
     var onActiveClickHandler = function () {
-        props.changeFilter('active');
+        changeFilter('active');
     };
     var onCompletedClickHandler = function () {
-        props.changeFilter('completed');
+        changeFilter('completed');
     };
     var onKeyPressHandler = function (e) {
         setError('');
@@ -49,8 +66,8 @@ var Todo = function (props) {
                     React.createElement("button", { onClick: function () { return props.removeTask(task.id); } }, "-")));
             })),
         React.createElement("div", { className: Todo_module_css_1["default"].buttons },
-            React.createElement("button", { className: classnames_1["default"](Todo_module_css_1["default"].buttons__status, props.filter === 'all' ? 'active-filter' : ''), onClick: onAllClickHandler }, "All"),
-            React.createElement("button", { className: classnames_1["default"](Todo_module_css_1["default"].buttons__status, props.filter === 'active' ? 'active-filter' : ''), onClick: onActiveClickHandler }, "Active"),
-            React.createElement("button", { className: classnames_1["default"](Todo_module_css_1["default"].buttons__status, props.filter === 'completed' ? 'active-filter' : ''), onClick: onCompletedClickHandler }, "Completed"))));
+            React.createElement("button", { className: classnames_1["default"](Todo_module_css_1["default"].buttons__status, filter === 'all' ? 'active-filter' : ''), onClick: onAllClickHandler }, "All"),
+            React.createElement("button", { className: classnames_1["default"](Todo_module_css_1["default"].buttons__status, filter === 'active' ? 'active-filter' : ''), onClick: onActiveClickHandler }, "Active"),
+            React.createElement("button", { className: classnames_1["default"](Todo_module_css_1["default"].buttons__status, filter === 'completed' ? 'active-filter' : ''), onClick: onCompletedClickHandler }, "Completed"))));
 };
 exports["default"] = Todo;
