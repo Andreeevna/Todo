@@ -7,8 +7,9 @@ export type TasksType = {
 	isDone: boolean
 }
 
-type TaskTitleType = {
-	title: string
+type ChangeStatusType = {
+	id: string
+	isDone: boolean
 }
 
 const initialState = {
@@ -51,9 +52,18 @@ export const addTaskSlice = createSlice({
 		removeCurrentTask(state, action: PayloadAction<string>) {
 			state.tasks1 = state.tasks1.filter(task => task.id !== action.payload)
 		},
+		changeStatusTask(state, action: PayloadAction<ChangeStatusType>) {
+			let findTask = state.tasks1.find(t => t.id === action.payload.id)
+			if (findTask) {
+				findTask.isDone = action.payload.isDone
+			}
+
+			state.tasks1 = [...state.tasks1]
+		},
 	},
 })
 
-export const { addNewTask, removeCurrentTask } = addTaskSlice.actions
+export const { addNewTask, removeCurrentTask, changeStatusTask } =
+	addTaskSlice.actions
 
 export default addTaskSlice.reducer

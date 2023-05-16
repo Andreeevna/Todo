@@ -18,7 +18,7 @@ type PropsType = {
 	addTask: (newTitle: string) => void
 	removeTask: (id: string) => void
 	changeFilter: (value: FilterValuesType) => void
-	// changeStatus: (id: string, isDone: boolean) => void
+	changeStatus: (id: string, isDone: boolean) => void
 	filter: FilterValuesType
 }
 
@@ -77,9 +77,11 @@ const Todo: React.FC<PropsType> = props => {
 			<ul className={styles.todo__list}>
 				{tasks &&
 					tasks.map((task: any) => {
-						// const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-						// 	// props.changeStatus(task.id, e.target.checked)
-						// }
+						const onChangeHandler = (
+							e: React.ChangeEvent<HTMLInputElement>
+						) => {
+							props.changeStatus(task.id, e.target.checked)
+						}
 
 						return (
 							<li
@@ -93,7 +95,7 @@ const Todo: React.FC<PropsType> = props => {
 									type='checkbox'
 									id={task.id}
 									checked={task.isDone}
-									// onChange={onChangeHandler}
+									onChange={onChangeHandler}
 								/>
 								<label htmlFor={task.id}>{task.title}</label>
 								<button onClick={() => props.removeTask(task.id)}>-</button>

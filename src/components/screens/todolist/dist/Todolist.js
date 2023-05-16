@@ -43,13 +43,14 @@ var Todolist = function () {
     var changeFilter = function (value) {
         setFilter(value);
     };
-    // const changeStatus = (id: string, isDone: boolean) => {
-    // 	let findTask = tasks.find(t => t.id === id)
-    // 	if (findTask) {
-    // 		findTask.isDone = isDone
-    // 	}
-    // 	setTasks([...tasks])
-    // }
+    var changeStatus = function (id, isDone) {
+        // let findTask = tasks.find(t => t.id === id)
+        // if (findTask) {
+        // 	findTask.isDone = isDone
+        // }
+        // setTasks([...tasks])
+        dispatch(addTaskSlice_1.changeStatusTask({ id: id, isDone: isDone }));
+    };
     // let tasksForToDoList = tasks
     // if (filter === 'completed') {
     // 	tasksForToDoList = tasks.filter(task => task.isDone === true)
@@ -61,8 +62,6 @@ var Todolist = function () {
         React.createElement("div", { className: Todolist_module_css_1["default"].todolist },
             React.createElement(Todo_1["default"], { title: 'Plans for today', 
                 // tasks={tasksForToDoList}
-                addTask: addTask, removeTask: removeTask, changeFilter: changeFilter, 
-                // changeStatus={changeStatus}
-                filter: filter }))));
+                addTask: addTask, removeTask: removeTask, changeFilter: changeFilter, changeStatus: changeStatus, filter: filter }))));
 };
 exports["default"] = Todolist;

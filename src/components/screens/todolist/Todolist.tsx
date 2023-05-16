@@ -4,6 +4,7 @@ import { v1 } from 'uuid'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	addNewTask,
+	changeStatusTask,
 	removeCurrentTask,
 } from '../../../redux/slices/addTaskSlice'
 import Layout from '../../layout/Layout'
@@ -55,15 +56,16 @@ const Todolist = () => {
 		setFilter(value)
 	}
 
-	// const changeStatus = (id: string, isDone: boolean) => {
-	// 	let findTask = tasks.find(t => t.id === id)
+	const changeStatus = (id: string, isDone: boolean) => {
+		// let findTask = tasks.find(t => t.id === id)
 
-	// 	if (findTask) {
-	// 		findTask.isDone = isDone
-	// 	}
+		// if (findTask) {
+		// 	findTask.isDone = isDone
+		// }
 
-	// 	setTasks([...tasks])
-	// }
+		// setTasks([...tasks])
+		dispatch(changeStatusTask({ id, isDone }))
+	}
 
 	// let tasksForToDoList = tasks
 
@@ -84,7 +86,7 @@ const Todolist = () => {
 					addTask={addTask}
 					removeTask={removeTask}
 					changeFilter={changeFilter}
-					// changeStatus={changeStatus}
+					changeStatus={changeStatus}
 					filter={filter}
 				/>
 			</div>
