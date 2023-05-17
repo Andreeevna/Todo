@@ -56,16 +56,17 @@ var Todo = function (props) {
             React.createElement("input", { className: classnames_1["default"](Todo_module_css_1["default"].todo__input, { error: error }), placeholder: 'Enter a new task...', type: 'text', value: newTaskTitle, onChange: editTaskTitleChangeHandler, onKeyPress: onKeyPressHandler }),
             React.createElement("button", { className: Todo_module_css_1["default"].button__add_task }, "+"),
             error && React.createElement("div", { className: 'error-message' }, error)),
-        React.createElement("ul", { className: Todo_module_css_1["default"].todo__list }, tasks &&
-            tasks.map(function (task) {
-                var onChangeHandler = function (e) {
-                    props.changeStatus(task.id, e.target.checked);
-                };
-                return (React.createElement("li", { key: task.id, className: classnames_1["default"](Todo_module_css_1["default"].todo__list_item, task.isDone === true ? 'is-done' : '') },
-                    React.createElement("input", { type: 'checkbox', id: task.id, checked: task.isDone, onChange: onChangeHandler }),
-                    React.createElement("label", { htmlFor: task.id }, task.title),
-                    React.createElement("button", { onClick: function () { return props.removeTask(task.id); } }, "-")));
-            })),
+        React.createElement("ul", { className: Todo_module_css_1["default"].todo__list }, (tasks &&
+            tasks.every(function (t) { return t.isDone === true && filter === 'active'; })) ||
+            tasks.every(function (t) { return t.isDone === false && filter === 'completed'; }) ? (React.createElement("div", null, "No tasks")) : (tasks.map(function (task) {
+            var onChangeHandler = function (e) {
+                props.changeStatus(task.id, e.target.checked);
+            };
+            return (React.createElement("li", { key: task.id, className: classnames_1["default"](Todo_module_css_1["default"].todo__list_item, task.isDone === true ? 'is-done' : '') },
+                React.createElement("input", { type: 'checkbox', id: task.id, checked: task.isDone, onChange: onChangeHandler }),
+                React.createElement("label", { htmlFor: task.id }, task.title),
+                React.createElement("button", { onClick: function () { return props.removeTask(task.id); } }, "-")));
+        }))),
         React.createElement("div", { className: Todo_module_css_1["default"].buttons },
             React.createElement("button", { className: classnames_1["default"](Todo_module_css_1["default"].buttons__status, filter === 'all' ? 'active-filter' : ''), onClick: onAllClickHandler }, "All"),
             React.createElement("button", { className: classnames_1["default"](Todo_module_css_1["default"].buttons__status, filter === 'active' ? 'active-filter' : ''), onClick: onActiveClickHandler }, "Active"),

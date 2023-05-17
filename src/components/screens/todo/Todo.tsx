@@ -87,7 +87,11 @@ const Todo: React.FC<PropsType> = props => {
 				{error && <div className='error-message'>{error}</div>}
 			</form>
 			<ul className={styles.todo__list}>
-				{tasks &&
+				{(tasks &&
+					tasks.every(t => t.isDone === true && filter === 'active')) ||
+				tasks.every(t => t.isDone === false && filter === 'completed') ? (
+					<div>No tasks</div>
+				) : (
 					tasks.map((task: any) => {
 						const onChangeHandler = (
 							e: React.ChangeEvent<HTMLInputElement>
@@ -113,7 +117,8 @@ const Todo: React.FC<PropsType> = props => {
 								<button onClick={() => props.removeTask(task.id)}>-</button>
 							</li>
 						)
-					})}
+					})
+				)}
 			</ul>
 			<div className={styles.buttons}>
 				<button
