@@ -13,27 +13,14 @@ var Todo_module_css_1 = require("./Todo.module.css");
 var react_redux_1 = require("react-redux");
 var Todo = function (props) {
     var tasks = react_redux_1.useSelector(function (state) { return state.addTask.tasks1; });
-    var _a = react_1.useState(''), newTaskTitle = _a[0], setnewTaskTitle = _a[1];
-    var _b = react_1.useState(''), error = _b[0], setError = _b[1];
-    var _c = react_1.useState('all'), filter = _c[0], setFilter = _c[1];
+    var _a = react_1.useState(''), error = _a[0], setError = _a[1];
+    var _b = react_1.useState('all'), filter = _b[0], setFilter = _b[1];
     if (filter === 'completed') {
         tasks = __spreadArrays(tasks.filter(function (task) { return task.isDone === true; }));
     }
     if (filter === 'active') {
         tasks = __spreadArrays(tasks.filter(function (task) { return task.isDone === false; }));
     }
-    var editTaskTitleChangeHandler = function (event) {
-        setnewTaskTitle(event.target.value);
-    };
-    var addNewTask = function () {
-        if (newTaskTitle.trim() !== '') {
-            props.addTask(newTaskTitle);
-            setnewTaskTitle('');
-        }
-        else {
-            setError('The title is required');
-        }
-    };
     var changeFilter = function (value) {
         setFilter(value);
     };
@@ -49,11 +36,25 @@ var Todo = function (props) {
     var onKeyPressHandler = function (e) {
         setError('');
     };
+    var _c = react_1.useState(''), newTaskTitle = _c[0], setnewTaskTitle = _c[1];
+    var editTaskTitleChangeHandler = function (event) {
+        setnewTaskTitle(event.target.value);
+    };
+    var handleSubmit = function (e) {
+        e.preventDefault();
+        if (newTaskTitle.trim() !== '') {
+            props.addTask(newTaskTitle);
+            setnewTaskTitle('');
+        }
+        else {
+            setError('The title is required');
+        }
+    };
     return (React.createElement("div", { className: classnames_1["default"](Todo_module_css_1["default"].todo__wrapper, Todo_module_css_1["default"].todo) },
         React.createElement("h3", { className: Todo_module_css_1["default"].todo__title }, props.title),
-        React.createElement("div", { className: Todo_module_css_1["default"].todo__new_task },
+        React.createElement("form", { onSubmit: handleSubmit, className: Todo_module_css_1["default"].todo__new_task },
             React.createElement("input", { className: classnames_1["default"](Todo_module_css_1["default"].todo__input, { error: error }), placeholder: 'Enter a new task...', type: 'text', value: newTaskTitle, onChange: editTaskTitleChangeHandler, onKeyPress: onKeyPressHandler }),
-            React.createElement("button", { className: Todo_module_css_1["default"].button__add_task, onClick: addNewTask }, "+"),
+            React.createElement("button", { className: Todo_module_css_1["default"].button__add_task }, "+"),
             error && React.createElement("div", { className: 'error-message' }, error)),
         React.createElement("ul", { className: Todo_module_css_1["default"].todo__list }, tasks &&
             tasks.map(function (task) {
