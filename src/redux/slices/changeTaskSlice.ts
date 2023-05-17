@@ -1,16 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { v1 } from 'uuid'
-
-export type TasksType = {
-	id: string
-	title: string
-	isDone: boolean
-}
-
-type ChangeStatusType = {
-	id: string
-	isDone: boolean
-}
+import { ChangeStatusType, TasksType } from '../../types/types'
 
 const initialState = {
 	tasks1: [

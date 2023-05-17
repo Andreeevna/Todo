@@ -5,22 +5,13 @@ import styles from './Todo.module.css'
 
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../redux/store'
+import {
+	FilterValuesType,
+	PropsTodoType,
+	TasksType,
+} from '../../../types/types'
 
-export type TasksType = {
-	id: string
-	title: string
-	isDone: boolean
-}
-export type FilterValuesType = 'all' | 'completed' | 'active'
-
-type PropsType = {
-	title: string
-	addTask: (newTitle: string) => void
-	removeTask: (id: string) => void
-	changeStatus: (id: string, isDone: boolean) => void
-}
-
-const Todo: React.FC<PropsType> = props => {
+const Todo: React.FC<PropsTodoType> = props => {
 	let tasks = useSelector((state: RootState) => state.addTask.tasks1)
 	const [error, setError] = useState('')
 
@@ -92,7 +83,7 @@ const Todo: React.FC<PropsType> = props => {
 				tasks.every(t => t.isDone === false && filter === 'completed') ? (
 					<div>No tasks</div>
 				) : (
-					tasks.map((task: any) => {
+					tasks.map((task: TasksType) => {
 						const onChangeHandler = (
 							e: React.ChangeEvent<HTMLInputElement>
 						) => {
